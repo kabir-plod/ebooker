@@ -2,11 +2,6 @@
 // All fiction on archiveofourown.org
 
 export default class Ao3Parser implements Parser {
-	private TITLE_QUERY = 'h2.title';
-	private AUTHOR_QUERY = 'h3.byline';
-	private CHAPTER_SELECT_QUERY = 'select';
-	private STORY_QUERY = '#chapters';
-
 	private NUM_SLASHES_FOR_URL_PREFIX = 6;
 
 	// Prefixed with underscore in case `document` is accidentally used 
@@ -22,22 +17,22 @@ export default class Ao3Parser implements Parser {
 	}
 
 	getTitle(): string {
-		return (<HTMLHeadingElement> this._document.querySelector(this.TITLE_QUERY)).innerText;
+		return (<HTMLHeadingElement> this._document.querySelector('h2.title')).innerText;
 	}
 
 	getAuthor(): string {
-		return (<HTMLHeadingElement> this._document.querySelector(this.AUTHOR_QUERY)).innerText;
+		return (<HTMLHeadingElement> this._document.querySelector('h3.byline')).innerText;
 	}
 
 	getChapterUrls(): string[] {
-		const selectElem = this._document.getElementsByTagName(this.CHAPTER_SELECT_QUERY)[0];
+		const selectElem = this._document.getElementsByTagName('select')[0];
 		if (selectElem == undefined) {
 			return [this.pageUrl];
 		}
 		else {
 			const options = (<HTMLSelectElement> selectElem).options;
 			let chapterUrls = [];
-			for (let i=1; i<=options.length; i++) {
+			for (let i=0; i<options.length; i++) {
 				chapterUrls.push(this.urlPrefix + (<HTMLOptionElement> options[i]).value);
 			}
 
@@ -47,7 +42,7 @@ export default class Ao3Parser implements Parser {
 
 	parseChapterFromDocument(_document: HTMLDocument): Chapter {
 		return {
-			data: (<HTMLDivElement> _document.querySelector(this.STORY_QUERY)).innerText
+			data: (<HTMLDivElement> _document.querySelector('#chapters')).innerText
 		} 
 	}
 

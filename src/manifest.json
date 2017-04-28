@@ -1,0 +1,38 @@
+{
+	"manifest_version": 2,
+
+	"name": "ebooker",
+	"description": "Download web fiction as epubs.",
+
+	"version": "0.1.0",
+
+	"browser_action": {
+		"default_title": "ebooker",
+		"default_icon": {
+			
+		},
+		"default_popup": "panel.html"
+	},
+
+	"options_ui": {
+
+	},
+
+	"icons": {
+
+	},
+
+	"permissions": ["activeTab", "storage", "https://*", "http://*"],
+
+	"background": {
+		"page": "bg.html"
+	},
+
+	"content_scripts": [
+		{
+			"matches": "*",
+			"js": ["content-script.js"],
+			"run_at": "document_start"
+		}
+	]
+}

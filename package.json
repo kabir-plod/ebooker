@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "description": "Browser extension to download web fiction as epubs",
   "scripts": {
-    "start": "node server.js",
-    "test": "./node_modules/.bin/wdio wdio.conf.js"
+    "dev": "webpack --config wdev.webpack.config.js --debug --output-pathinfo --progress",
+    "test": "webpack --config wtest.webpack.config.js --output-pathinfo --progress",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -16,20 +17,15 @@
     "url": "https://github.com/kabir-plod/ebooker/issues"
   },
   "devDependencies": {
-    "@types/chai": "^3.5.1",
-    "@types/mocha": "^2.2.41",
+    "@types/chrome": "0.0.46",
     "@types/node": "^7.0.13",
     "@types/react": "^15.0.16",
     "@types/react-dom": "^0.14.23",
     "awesome-typescript-loader": "^3.1.2",
-    "chai": "^3.5.0",
-    "mocha": "^3.3.0",
+    "copy-webpack-plugin": "^4.0.1",
+    "tape": "^4.6.3",
     "ts-node": "^3.0.2",
-    "tslint": "^4.5.1",
     "typescript": "^2.2.1",
-    "wdio-mocha-framework": "^0.5.10",
-    "wdio-sauce-service": "^0.4.0",
-    "webdriverio": "^4.7.1",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.2"
   },

@@ -2,11 +2,6 @@
 // All fiction on fictionpress.com and fanfiction.net
 
 export default class FictionpressParser implements Parser {
-	private TITLE_QUERY = 'b.xcontrast_txt';
-	private AUTHOR_QUERY = 'a.xcontrast_txt'; // querySelectorAll required for author
-	private CHAPTER_SELECT_QUERY = 'select';
-	private STORY_QUERY = '#chapters';
-
 	private NUM_SLASHES_FOR_URL_PREFIX = 5;
 
 	private _document: HTMLDocument;
@@ -21,24 +16,23 @@ export default class FictionpressParser implements Parser {
 		this.urlPostfix = this.parseUrlPostfix(pageUrl);
 	}
 
-
 	getTitle(): string {
-		return (<HTMLElement> this._document.querySelector(this.TITLE_QUERY)).innerText;
+		return (<HTMLElement> this._document.querySelector('b.xcontrast_txt')).innerText;
 	}
 
 	getAuthor(): string {
-		return (<HTMLElement> this._document.querySelectorAll(this.AUTHOR_QUERY)[2]).innerText;
+		return (<HTMLElement> this._document.querySelectorAll('a.xcontrast_txt')[2]).innerText;
 	}
 
 	getChapterUrls(): string[] {
-		const selectElem = this._document.getElementsByTagName(this.CHAPTER_SELECT_QUERY)[0];
+		const selectElem = this._document.getElementsByTagName('select')[0];
 		if (selectElem == undefined) {
 			return [this.pageUrl];
 		}
 		else {
 			const numChapters = (<HTMLSelectElement> selectElem).options.length;
 			let chapterUrls = [];
-			for (let i=1; i<=numChapters; i++) {
+			for (let i=0; i<numChapters; i++) {
 				chapterUrls.push(this.urlPrefix + i.toString() + this.urlPostfix);
 			}
 
@@ -48,7 +42,7 @@ export default class FictionpressParser implements Parser {
 
 	parseChapterFromDocument(_document: HTMLDocument): Chapter {
 		return {
-			data: (<HTMLElement> this._document.querySelector(this.STORY_QUERY)).innerText
+			data: (<HTMLElement> this._document.querySelector('#chapters')).innerText
 		}
 	}
 
