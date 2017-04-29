@@ -13,10 +13,17 @@ export default class WordpressParser implements Parser {
 		this.pageUrl = pageUrl;
 	}
 	
+	static getParserReturner(): ParserReturner {
+		return function(_document: HTMLDocument, pageURL: string) {
+			return new WordpressParser(_document, pageURL);
+		};
+	}
+
 	getTitle(): string {
 		return this._document.querySelector('title').innerHTML;
 	}
 
+	// Cannot reliably parse author
 	getAuthor(): string {
 		return '';
 	}

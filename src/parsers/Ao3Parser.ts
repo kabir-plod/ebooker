@@ -16,6 +16,12 @@ export default class Ao3Parser implements Parser {
 		this.urlPrefix = this.parseUrlPrefix(pageUrl);
 	}
 
+	static getParserReturner(): ParserReturner {
+		return function(_document: HTMLDocument, pageURL: string) {
+			return new Ao3Parser(_document, pageURL);
+		};
+	}
+
 	getTitle(): string {
 		return (<HTMLHeadingElement> this._document.querySelector('h2.title')).innerText;
 	}

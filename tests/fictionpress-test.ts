@@ -1,16 +1,34 @@
-import * as test from 'tape';
 import FictionpressParser from '../src/parsers/FictionpressParser';
 
-export default runFictionpressParserTests;
 
-function runFictionpressParserTests() {
-	test('fictionpress parser, single page', t => {
-		
-		
-		const parser = new FictionpressParser(document, 'https://www.fanfiction.net/s/2048837/1/Reminiscence');
+const fictionpressTestInfo: TestInfo[] =
+[
+	{
+		tabId: -1, // will be overwritten by setup function
+		testName: 'fictionpress parser, single chapter',
+		url: 'https://www.fanfiction.net/s/2048837/1/Reminiscence',
+		title: 'Reminiscence',
+		author: 'Kenya Starflight',
+		chapterUrls: ['https://www.fanfiction.net/s/2048837/1/Reminiscence'],
+		parser: FictionpressParser.getParserReturner()
+	},
+	{
+		tabId: -1, // will be overwritten by setup function
+		testName: 'fictionpress parser, multiple chapters',
+		url: 'https://www.fictionpress.com/s/3305498/2/When-Darkness-Shines-Brightest',
+		title: 'When Darkness Shines Brightest',
+		author: 'JulmaSatu',
+		chapterUrls: [
+			'https://www.fictionpress.com/s/3305498/1/When-Darkness-Shines-Brightest',
+			'https://www.fictionpress.com/s/3305498/2/When-Darkness-Shines-Brightest',
+			'https://www.fictionpress.com/s/3305498/3/When-Darkness-Shines-Brightest',
+			'https://www.fictionpress.com/s/3305498/4/When-Darkness-Shines-Brightest'
+		],
+		parser: FictionpressParser.getParserReturner()
+	}
+];
 
-		t.equal(parser.getTitle(), 'Reminiscence');
-		t.equal(parser.getAuthor(), 'Kenya Starflight');
-		t.deepEqual(parser.getChapterUrls(), ['https://www.fanfiction.net/s/2048837/1/Reminiscence']);
-	});
-}
+
+export default fictionpressTestInfo;
+
+

@@ -3,16 +3,22 @@ var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 
-var entryFile = '/src/index';
+var entryFile = '/src/index.tsx';
 var manifestFile = '/src/manifest.json';
 var outdir = '/dist/main';
 var outFilename = 'content-script.js';
+var moduleRulesInclude = [path.join(__dirname, 'src')];
 
 
 var CopyWebpackPluginConfig = new CopyWebpackPlugin([
 	// Copy manifest
 	{
 		from: path.join(__dirname, manifestFile),
+		to: path.join(__dirname, outdir),
+	},
+	// Copy background page
+	{
+		from: path.join(__dirname, '/src/bg.html'),
 		to: path.join(__dirname, outdir),
 	}
 ],
@@ -21,7 +27,7 @@ var CopyWebpackPluginConfig = new CopyWebpackPlugin([
 module.exports = {
 	devtool: 'eval',
 	entry: [
-		entryFile
+		path.join(__dirname, entryFile)
 	],
 	output: {
 		path: path.join(__dirname, outdir),
@@ -35,7 +41,10 @@ module.exports = {
 		rules: [{
 			test: /\.tsx?$/,
 			loaders: ['awesome-typescript-loader'],
-			include: path.join(__dirname, 'src')
+			include: moduleRulesInclude
 		}]
-	}
+	},
+	plugins: [
+		CopyWebpackPluginConfig,
+	]
 };

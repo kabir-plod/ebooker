@@ -16,6 +16,12 @@ export default class FictionpressParser implements Parser {
 		this.urlPostfix = this.parseUrlPostfix(pageUrl);
 	}
 
+	static getParserReturner(): ParserReturner {
+		return function(_document: HTMLDocument, pageURL: string) {
+			return new FictionpressParser(_document, pageURL);
+		};
+	}
+
 	getTitle(): string {
 		return (<HTMLElement> this._document.querySelector('b.xcontrast_txt')).innerText;
 	}

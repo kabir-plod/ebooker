@@ -3,10 +3,11 @@ var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 
-var entryFile = '/tests/test_index';
+var entryFile = '/tests/main-test.ts';
 var manifestFile = '/tests/manifest.json';
 var outdir = '/dist/test';
-var outFilename = 'content-script.js';
+var outFilename = 'buttonclick-event-script.js';
+var moduleRulesInclude = [path.join(__dirname, 'src'), path.join(__dirname, 'test')];
 
 
 var CopyWebpackPluginConfig = new CopyWebpackPlugin([
@@ -21,7 +22,7 @@ var CopyWebpackPluginConfig = new CopyWebpackPlugin([
 module.exports = {
 	devtool: 'eval',
 	entry: [
-		entryFile
+		path.join(__dirname, entryFile)
 	],
 	output: {
 		path: path.join(__dirname, outdir),
@@ -35,7 +36,14 @@ module.exports = {
 		rules: [{
 			test: /\.tsx?$/,
 			loaders: ['awesome-typescript-loader'],
-			include: path.join(__dirname, 'src')
+			include: moduleRulesInclude
 		}]
+	},
+	plugins: [
+		CopyWebpackPluginConfig,
+	],
+	// Workaround for `can't resolve module 'fs'` issue
+	node: {
+		fs: 'empty'
 	}
 };

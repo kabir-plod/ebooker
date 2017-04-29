@@ -15,6 +15,12 @@ export default class TwigParser extends WordpressParser implements Parser  {
 	}
 
 	// getTitle(), getAuthor() and getChapterFromDocument() implemented by WordpressParser
+	
+	static getParserReturner(): ParserReturner {
+		return function(_document: HTMLDocument, pageURL: string) {
+			return new TwigParser(_document, pageURL);
+		};
+	}
 
 	getChapterUrls(): string[] {
 		const selectElem = this._document.getElementsByTagName('select')[0];

@@ -12,6 +12,12 @@ export default class PracticalGuideToEvilParser extends WordpressParser implemen
 
 	// getTitle(), getAuthor() and getChapterFromDocument() implemented by WordpressParser
 
+	static getParserReturner(): ParserReturner {
+		return function(_document: HTMLDocument, pageURL: string) {
+			return new PracticalGuideToEvilParser(_document, pageURL);
+		};
+	}
+
 	public getChapterUrls(): string[] {
 		const links = this._document.getElementsByClassName('entry-content')[0].getElementsByTagName('a');
 

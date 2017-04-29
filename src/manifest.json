@@ -22,17 +22,10 @@
 
 	},
 
-	"permissions": ["activeTab", "storage", "https://*", "http://*"],
+	"permissions": ["activeTab", "storage", "https://*/*", "http://*/*"],
 
 	"background": {
-		"page": "bg.html"
-	},
-
-	"content_scripts": [
-		{
-			"matches": "*",
-			"js": ["content-script.js"],
-			"run_at": "document_start"
-		}
-	]
+		"scripts": ["buttonclick-event-script.js"],
+		"persistent": true
+	}
 }

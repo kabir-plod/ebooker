@@ -1,7 +1,7 @@
 // CURRENTLY WORKS FOR:
 // All fiction on royalroadl.com
 
-export default class WordpressParser implements Parser {
+export default class RoyalroadlParser implements Parser {
 	// Prefixed with underscore in case `document` is accidentally used 
 	// instead of `this.document`.
 	_document: HTMLDocument;
@@ -10,6 +10,12 @@ export default class WordpressParser implements Parser {
 	constructor(_document: HTMLDocument, pageUrl: string) {
 		this._document = _document;
 		this.pageUrl = pageUrl;
+	}
+
+	static getParserReturner(): ParserReturner {
+		return function(_document: HTMLDocument, pageURL: string) {
+			return new RoyalroadlParser(_document, pageURL);
+		};
 	}
 	
 	getTitle(): string {
