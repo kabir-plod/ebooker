@@ -3,11 +3,15 @@ var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 
-var entryFile = '/tests/main-test.ts';
+var entryObj = {
+	'buttonclick-event-script': path.join(__dirname, '/tests/Q-main-test.ts'),
+	'content-script': path.join(__dirname, '/tests/content-script.ts')
+};
 var manifestFile = '/tests/manifest.json';
+var backgroundPage = '/tests/bg.html';
 var outdir = '/dist/test';
-var outFilename = 'buttonclick-event-script.js';
 var moduleRulesInclude = [path.join(__dirname, 'src'), path.join(__dirname, 'test')];
+var devtool = 'cheap-source-map';
 
 
 var CopyWebpackPluginConfig = new CopyWebpackPlugin([
@@ -15,18 +19,21 @@ var CopyWebpackPluginConfig = new CopyWebpackPlugin([
 	{
 		from: path.join(__dirname, manifestFile),
 		to: path.join(__dirname, outdir),
+	},
+	// Copy background
+	{
+		from: path.join(__dirname, backgroundPage),
+		to: path.join(__dirname, outdir),
 	}
 ],
 {});
 
 module.exports = {
-	devtool: 'eval',
-	entry: [
-		path.join(__dirname, entryFile)
-	],
+	devtool: devtool,
+	entry: entryObj,
 	output: {
 		path: path.join(__dirname, outdir),
-		filename: outFilename,
+		filename: '[name].js',
 		publicPath: '/static/'
 	},
 	resolve: {

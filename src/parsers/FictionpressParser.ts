@@ -23,6 +23,7 @@ export default class FictionpressParser implements Parser {
 	}
 
 	getTitle(): string {
+		console.log('_document: ' + this._document);
 		return (<HTMLElement> this._document.querySelector('b.xcontrast_txt')).innerText;
 	}
 

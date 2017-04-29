@@ -4,7 +4,6 @@ import FictionpressParser from '../src/parsers/FictionpressParser';
 const fictionpressTestInfo: TestInfo[] =
 [
 	{
-		tabId: -1, // will be overwritten by setup function
 		testName: 'fictionpress parser, single chapter',
 		url: 'https://www.fanfiction.net/s/2048837/1/Reminiscence',
 		title: 'Reminiscence',
@@ -13,7 +12,6 @@ const fictionpressTestInfo: TestInfo[] =
 		parser: FictionpressParser.getParserReturner()
 	},
 	{
-		tabId: -1, // will be overwritten by setup function
 		testName: 'fictionpress parser, multiple chapters',
 		url: 'https://www.fictionpress.com/s/3305498/2/When-Darkness-Shines-Brightest',
 		title: 'When Darkness Shines Brightest',

@@ -3,11 +3,14 @@ var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 
-var entryFile = '/src/index.tsx';
+var entryObj = {
+	'bundle': path.join(__dirname, '/src/index.tsx')
+};
 var manifestFile = '/src/manifest.json';
+var backgroundPage = '/src/bg.html';
 var outdir = '/dist/main';
-var outFilename = 'content-script.js';
 var moduleRulesInclude = [path.join(__dirname, 'src')];
+var devtool = 'cheap-source-map';
 
 
 var CopyWebpackPluginConfig = new CopyWebpackPlugin([
@@ -18,20 +21,18 @@ var CopyWebpackPluginConfig = new CopyWebpackPlugin([
 	},
 	// Copy background page
 	{
-		from: path.join(__dirname, '/src/bg.html'),
+		from: path.join(__dirname, backgroundPage),
 		to: path.join(__dirname, outdir),
 	}
 ],
 {});
 
 module.exports = {
-	devtool: 'eval',
-	entry: [
-		path.join(__dirname, entryFile)
-	],
+	devtool: devtool,
+	entry: entryObj,
 	output: {
 		path: path.join(__dirname, outdir),
-		filename: outFilename,
+		filename: '[name].js',
 		publicPath: '/static/'
 	},
 	resolve: {

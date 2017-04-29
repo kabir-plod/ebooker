@@ -1,5 +1,4 @@
 interface TestInfo {
-	tabId: number;
 	testName: string;
 	url: string;
 	title: string;
