@@ -20,15 +20,7 @@
 	"permissions": ["tabs", "storage", "https://*/*", "http://*/*"],
 
 	"background": {
-		"scripts": ["buttonclick-event-script.js"],
+		"scripts": ["test-script.js"],
 		"persistent": true
-	},
-
-	"content_scripts": [
-		{
-			"matches": ["http://*/*", "https://*/*"],
-			"js": ["content-script.js"],
-			"run_at": "document_idle"
-		}
-	]
+	}
 }

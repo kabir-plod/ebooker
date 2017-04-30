@@ -6,13 +6,9 @@ const testInfoArr: TestInfo[] = [...fictionpressTestInfo];
 
 
 testInfoArr.map( (testInfo) => {
-	// console.log(testInfo);
-
 	const xhr = new XMLHttpRequest();
 
 	xhr.onload = function() {
-		console.log( (<HTMLElement> xhr.responseXML.querySelector('b.xcontrast_txt')).innerText );
-
 		const parser = testInfo.parser(xhr.responseXML, testInfo.url);
 
 		test(testInfo.testName, t => {
