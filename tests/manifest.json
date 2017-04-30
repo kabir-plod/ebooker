@@ -13,10 +13,6 @@
 		}
 	},
 
-	"options_ui": {
-
-	},
-
 	"icons": {
 
 	},
@@ -24,7 +20,7 @@
 	"permissions": ["tabs", "storage", "https://*/*", "http://*/*"],
 
 	"background": {
-		"page": "bg.html",
+		"scripts": ["buttonclick-event-script.js"],
 		"persistent": true
 	},
 

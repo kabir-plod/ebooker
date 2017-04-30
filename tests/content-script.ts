@@ -1,13 +1,13 @@
 import * as test from 'tape';
 
-chrome.runtime.sendMessage({message: 'content script ready'});
+chrome.runtime.sendMessage({message: 'send testInfo', _document: JSON.stringify(document)}, function(response) {
+	console.log('response with testInfo on next line: ');
+	console.log(JSON.parse(response));
 
-chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
-    const testInfo = request.testInfo;
-    console.log('request: ' + JSON.stringify(testInfo));
+	const testInfo = JSON.parse(response.testInfo);
 
-    test(testInfo.testName, t => {
-    	console.log('INSIDE TEST ' + testInfo);
+	test(testInfo.testName, t => {
+		console.log('title: ' + (<HTMLElement> document.querySelector('b.xcontrast_txt')).innerText);
 
 		t.plan(3);
 
@@ -17,6 +17,5 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 		t.deepEqual(parser.getChapterUrls(), testInfo.chapterUrls);
 	});	
 
-	// chrome.tabs.remove(testInfo.tabId);	
+	// chrome.tabs.remove(testInfo.tabId);
 });
-

@@ -37,10 +37,10 @@ export default class FictionpressParser implements Parser {
 			return [this.pageUrl];
 		}
 		else {
-			const numChapters = (<HTMLSelectElement> selectElem).options.length;
+			const options = (<HTMLSelectElement> selectElem).options;
 			let chapterUrls = [];
-			for (let i=0; i<numChapters; i++) {
-				chapterUrls.push(this.urlPrefix + i.toString() + this.urlPostfix);
+			for (let i=0; i<options.length; i++) {
+				chapterUrls.push(this.urlPrefix + (<HTMLOptionElement> options[i]).value + this.urlPostfix);
 			}
 
 			return chapterUrls;

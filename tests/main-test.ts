@@ -1,93 +1,34 @@
-// import fictionpressTestInfo from './fictionpress-test';
+import * as test from 'tape';
+import fictionpressTestInfo from './fictionpress-test';
 
 
-// const testInfoArr: TestInfo[] = [...fictionpressTestInfo];
-// let createCallbackCounter: number = testInfoArr.length;
-// let updateCallbackCounter: number = testInfoArr.length;
+const testInfoArr: TestInfo[] = [...fictionpressTestInfo];
 
 
-// // Register an event listener. When the toolbar button is clicked,
-// // this script will run
-// chrome.browserAction.onClicked.addListener(handleButtonClick);
+testInfoArr.map( (testInfo) => {
+	// console.log(testInfo);
 
+	const xhr = new XMLHttpRequest();
 
-// // Create new incognito window to run tests. 
-// function handleButtonClick() {
-// 	chrome.windows.create(
-// 		{
-// 			'incognito': true
-// 		}, 
+	xhr.onload = function() {
+		console.log( (<HTMLElement> xhr.responseXML.querySelector('b.xcontrast_txt')).innerText );
 
-// 		function callback(window) {
-// 			setupBrowser(window);
-// 		}
-// 	);
-// }
+		const parser = testInfo.parser(xhr.responseXML, testInfo.url);
 
+		test(testInfo.testName, t => {
+			t.plan(3);
 
-// // Open test urls in tabs. This is not done in the chrome.windows.create 
-// // function since we need the tabId for each url.
-// function setupBrowser(window: chrome.windows.Window) {
-// 	for (let i=0; i<testInfoArr.length; i++) {
-// 		chrome.tabs.create(
-// 			{
-// 				'url': testInfoArr[i].url
-// 				// 'windowId': window.id
-// 			}, 
-			
-// 			function callback(tab) {
-// 				testInfoArr[i].tabId = tab.id;
-// 			}
-// 		);
-// 	}
-// }
+			t.equal(parser.getTitle(), testInfo.title);
+			t.equal(parser.getAuthor(), testInfo.author);
+			t.deepEqual(parser.getChapterUrls(), testInfo.chapterUrls);
+		});
+	}
 
+	xhr.onerror = function() {
+		console.log('Error while getting document.');
+	}
 
-// chrome.tabs.onCreated.addListener(addUpdateListenerAfterAllCallbacks);
-
-
-// // Barrier. Waits for all tab urls to be set
-// // by using a counter before running tests.
-// function addUpdateListenerAfterAllCallbacks() {
-// 	createCallbackCounter -= 1;
-// 	if (createCallbackCounter == 0) {
-// 		chrome.tabs.onUpdated.addListener(addActivateListenerAfterAllCallbacks);
-// 	}
-// }
-
-
-// // Barrier. Waits for all tab urls to be set
-// // by using a counter before running tests.
-// function addActivateListenerAfterAllCallbacks(tabId: number, changeInfo) {
-
-// 	console.log('update info: ' + JSON.stringify({tabId: tabId, changeInfo: changeInfo}));
-
-// 	if (changeInfo.status === 'complete') {
-// 		updateCallbackCounter -= 1;
-// 	}
-
-// 	if (updateCallbackCounter == 0) {
-// 		chrome.tabs.onActivated.addListener(addActivateListenerAfterAllCallbacks);
-// 	}
-// }
-
-
-// function runTestForActiveTab
-
-
-// // For every testInfo object, 
-// // 1. go to the relevant tab
-// // 2. run tests
-// // 3. close tab
-// function runTests() {
-// 	testInfoArr.map( testInfo => {
-// 		chrome.tabs.update(testInfo.tabId, {'active': true}, function callback() {
-			
-// 			setTimeout( () => {
-// 				console.log('Sending message');
-// 				chrome.runtime.sendMessage(testInfo, ()=>{});
-// 			},
-// 			2000);
-// 		});
-// 	});
-// }
+	xhr.open('GET', testInfo.url);
+	xhr.responseType = 'document';
+	xhr.send();
+});

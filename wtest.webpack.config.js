@@ -4,7 +4,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 
 var entryObj = {
-	'buttonclick-event-script': path.join(__dirname, '/tests/Q-main-test.ts'),
+	'buttonclick-event-script': path.join(__dirname, '/tests/main-test.ts'),
 	'content-script': path.join(__dirname, '/tests/content-script.ts')
 };
 var manifestFile = '/tests/manifest.json';
