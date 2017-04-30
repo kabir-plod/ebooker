@@ -1,11 +1,14 @@
 import * as test from 'tape';
-import fictionpressTestInfo from './fictionpress-test';
+import fictionpressTestInfo from './fictionpressTestInfo';
 
 
 const testInfoArr: TestInfo[] = [...fictionpressTestInfo];
 
+test('test test', t => {
+	t.pass('test test passed');
+})
 
-testInfoArr.map( (testInfo) => {
+testInfoArr.map( testInfo => {
 	const xhr = new XMLHttpRequest();
 
 	xhr.onload = function() {
