@@ -1,26 +1,26 @@
 {
-	"manifest_version": 2,
+  "manifest_version": 2,
 
-	"name": "ebooker tests",
-	"description": "Tests for the ebooker extension",
+  "name": "ebooker tests",
+  "description": "Tests for the ebooker extension",
 
-	"version": "0.1.0",
+  "version": "0.1.0",
 
-	"browser_action": {
-		"default_title": "ebooker tests",
-		"default_icon": {
-			
-		}
-	},
+  "browser_action": {
+    "default_title": "ebooker tests",
+    "default_icon": {
+      
+    }
+  },
 
-	"icons": {
+  "icons": {
 
-	},
+  },
 
-	"permissions": ["tabs", "storage", "https://*/*", "http://*/*"],
+  "permissions": ["tabs", "storage", "https://*/", "http://*/"],
 
-	"background": {
-		"scripts": ["test-script.js"],
-		"persistent": true
-	}
+  "background": {
+    "scripts": ["test-script.js"],
+    "persistent": true
+  }
 }

@@ -4,8 +4,8 @@
 export default class FictionpressParser implements Parser {
 	private NUM_SLASHES_FOR_URL_PREFIX = 5;
 
-	private _document: HTMLDocument;
-	private pageUrl: string;
+	protected _document: HTMLDocument;
+	protected pageUrl: string;
 	private urlPrefix: string;
 	private urlPostfix: string;
 
@@ -16,22 +16,21 @@ export default class FictionpressParser implements Parser {
 		this.urlPostfix = this.parseUrlPostfix(pageUrl);
 	}
 
-	static getParserReturner(): ParserReturner {
+	public static getParserReturner(): ParserReturner {
 		return function(_document: HTMLDocument, pageURL: string) {
 			return new FictionpressParser(_document, pageURL);
 		};
 	}
 
-	getTitle(): string {
-		console.log('_document: ' + this._document);
+	public getTitle(): string {
 		return (<HTMLElement> this._document.querySelector('b.xcontrast_txt')).innerText;
 	}
 
-	getAuthor(): string {
+	public getAuthor(): string {
 		return (<HTMLElement> this._document.querySelectorAll('a.xcontrast_txt')[2]).innerText;
 	}
 
-	getChapterUrls(): string[] {
+	public getChapterUrls(): string[] {
 		const selectElem = this._document.getElementsByTagName('select')[0];
 		if (selectElem == undefined) {
 			return [this.pageUrl];
@@ -47,7 +46,7 @@ export default class FictionpressParser implements Parser {
 		}
 	}
 
-	parseChapterFromDocument(_document: HTMLDocument): Chapter {
+	public parseChapterFromDocument(_document: HTMLDocument): Chapter {
 		return {
 			data: (<HTMLElement> this._document.querySelector('#chapters')).innerText
 		}

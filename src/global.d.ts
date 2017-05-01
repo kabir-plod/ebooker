@@ -18,7 +18,7 @@ interface Parser {
 	// again, workarounds are difficult to implement and difficult to understand.
 	// This comment is a reminder to implement
 
-	// static getParserReturner(): ParserReturner
+	// public static getParserReturner(): ParserReturner
 
 	getTitle(): string;
 	getAuthor(): string;

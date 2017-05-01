@@ -1,25 +1,25 @@
 // CURRENTLY WORKS FOR:
-// practicalguidetoevil.wordpress.com/table-of-contents/
+// tiraas.wordpress.com/table-of-contents/
 import WordpressParser from './WordpressParser';
 
 
-export default class PracticalGuideToEvilParser extends WordpressParser implements Parser {
+export default class TheGodsAreBastardsParser extends WordpressParser implements Parser {
 	constructor(_document: HTMLDocument, pageUrl: string) {
 		super(_document, pageUrl);
 	}
 
 	public static getParserReturner(): ParserReturner {
 		return function(_document: HTMLDocument, pageURL: string) {
-			return new PracticalGuideToEvilParser(_document, pageURL);
+			return new TheGodsAreBastardsParser(_document, pageURL);
 		};
 	}
 
 	public getTitle() {
-		return 'A Practical Guide to Evil';
+		return 'The Gods are Bastards';
 	}
 
 	public getAuthor() {
-		return 'Erraticerrata';
+		return 'D. D. Webb';
 	}
 
 	public getChapterUrls(): string[] {
@@ -27,6 +27,6 @@ export default class PracticalGuideToEvilParser extends WordpressParser implemen
 	}
 
 	public parseChapterFromDocument(_document: HTMLDocument): Chapter {
-		return super.parseChapterFromDocument(_document);
+		return super.parseChapterFromDocument(_document); 
 	}
 }

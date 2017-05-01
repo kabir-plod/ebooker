@@ -1,6 +1,5 @@
 // CURRENTLY WORKS FOR:
 // twigserial.wordpress.com
-
 import WordpressParser from './WordpressParser';
 
 
@@ -10,19 +9,24 @@ export default class TwigParser extends WordpressParser implements Parser  {
 
 	constructor(_document: HTMLDocument, pageUrl: string) {
 		super(_document, pageUrl);
-
 		this.urlPrefix = this.parseUrlPrefix(pageUrl);
 	}
 
-	// getTitle(), getAuthor() and getChapterFromDocument() implemented by WordpressParser
-	
-	static getParserReturner(): ParserReturner {
+	public static getParserReturner(): ParserReturner {
 		return function(_document: HTMLDocument, pageURL: string) {
 			return new TwigParser(_document, pageURL);
 		};
 	}
 
-	getChapterUrls(): string[] {
+	public getTitle() {
+		return 'Twig';
+	}
+
+	public getAuthor() {
+		return 'Wildbow';
+	}
+
+	public getChapterUrls(): string[] {
 		const selectElem = this._document.getElementsByTagName('select')[0];
 		const options = selectElem.options;
 
@@ -38,5 +42,9 @@ export default class TwigParser extends WordpressParser implements Parser  {
 	private parseUrlPrefix(pageUrl: string): string {
 		const tokens = pageUrl.split('/');
 		return tokens.slice(0, this.NUM_SLASHES_FOR_URL_PREFIX).join('/') + '/';
+	}
+
+	public parseChapterFromDocument(_document: HTMLDocument): Chapter {
+		return super.parseChapterFromDocument(_document);
 	}
 }

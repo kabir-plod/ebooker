@@ -1,35 +1,25 @@
-// CURRENTLY WORKS FOR:
-// parahumans.wordpress.com
-// pactwebserial.wordpress.com
-
-export default class WordpressParser implements Parser {
+abstract class WordpressParser implements Parser {
 	// Prefixed with underscore in case `document` is accidentally used 
 	// instead of `this.document`.
-	_document: HTMLDocument;
-	pageUrl: string;
+	protected _document: HTMLDocument;
+	protected pageUrl: string;
 
 	constructor(_document: HTMLDocument, pageUrl: string) {
 		this._document = _document;
 		this.pageUrl = pageUrl;
 	}
-	
-	static getParserReturner(): ParserReturner {
-		return function(_document: HTMLDocument, pageURL: string) {
-			return new WordpressParser(_document, pageURL);
-		};
+
+	public getTitle() {
+		return document.querySelector('title').innerHTML;
 	}
 
-	getTitle(): string {
-		return this._document.querySelector('title').innerHTML;
-	}
-
-	// Cannot reliably parse author
-	getAuthor(): string {
+	// Cannot reliably get author
+	public getAuthor() {
 		return '';
 	}
 
-	getChapterUrls(): string[] {
-		const links = this._document.getElementById('categories-2').getElementsByTagName('a');
+	public getChapterUrls(): string[] {
+		const links = this._document.getElementsByClassName('entry-content')[0].getElementsByTagName('a');
 
 		let chapterUrls;
 		for (let i=0; i<links.length; i++) {
@@ -39,9 +29,14 @@ export default class WordpressParser implements Parser {
 		return chapterUrls;
 	}
 
-	parseChapterFromDocument(_document: HTMLDocument): Chapter {
+	parserChapterFromDocument() {}
+
+	public parseChapterFromDocument(_document: HTMLDocument): Chapter {
 		return {
 			data: (<HTMLDivElement> _document.querySelector('.entry-content')).innerText
 		} 
 	}
 }
+
+
+export default WordpressParser;

@@ -4,10 +4,9 @@
   "description": "Browser extension to download web fiction as epubs",
   "scripts": {
     "dev": "webpack --config wdev.webpack.config.js --debug --output-pathinfo --progress",
-    "test": "webpack --config wtest.webpack.config.js --output-pathinfo --progress",
+    "test": "webpack --config wtest.webpack.config.js --output-pathinfo --progress --watch",
     "start": "node server.js",
-    "karma": "karma start",
-    "ext": "npm run test && web-ext run -s ./dist/test"
+    "zuul": "zuul --local 8080 --ui mocha-qunit -- ./dist/test/test-script.js"
   },
   "repository": {
     "type": "git",
@@ -26,16 +25,12 @@
     "@types/tape": "^4.2.29",
     "awesome-typescript-loader": "^3.1.2",
     "copy-webpack-plugin": "^4.0.1",
-    "karma": "^1.6.0",
-    "karma-chrome-launcher": "^2.0.0",
-    "karma-tap": "^3.1.1",
-    "karma-typescript-preprocessor": "^0.3.1",
-    "karma-webpack": "^2.0.3",
     "tape": "^4.6.3",
     "typescript": "^2.2.1",
     "web-ext": "^1.9.0",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.2"
+    "webpack-dev-server": "^2.4.2",
+    "zuul": "^3.11.1"
   },
   "dependencies": {
     "epub-gen": "0.0.17",

@@ -22,7 +22,7 @@
 
 	},
 
-	"permissions": ["activeTab", "storage", "https://*/*", "http://*/*"],
+	"permissions": ["activeTab", "storage", "https://*/", "http://*/"],
 
 	"background": {
 		"scripts": ["buttonclick-event-script.js"],

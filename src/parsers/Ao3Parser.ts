@@ -16,21 +16,21 @@ export default class Ao3Parser implements Parser {
 		this.urlPrefix = this.parseUrlPrefix(pageUrl);
 	}
 
-	static getParserReturner(): ParserReturner {
+	public static getParserReturner(): ParserReturner {
 		return function(_document: HTMLDocument, pageURL: string) {
 			return new Ao3Parser(_document, pageURL);
 		};
 	}
 
-	getTitle(): string {
-		return (<HTMLHeadingElement> this._document.querySelector('h2.title')).innerText;
+	public getTitle(): string {
+		return (<HTMLHeadingElement> this._document.querySelector('h2.title')).innerText.trim();
 	}
 
-	getAuthor(): string {
-		return (<HTMLHeadingElement> this._document.querySelector('h3.byline')).innerText;
+	public getAuthor(): string {
+		return (<HTMLHeadingElement> this._document.querySelector('h3.byline')).innerText.trim();
 	}
 
-	getChapterUrls(): string[] {
+	public getChapterUrls(): string[] {
 		const selectElem = this._document.getElementsByTagName('select')[0];
 		if (selectElem == undefined) {
 			return [this.pageUrl];
@@ -46,7 +46,7 @@ export default class Ao3Parser implements Parser {
 		}
 	}
 
-	parseChapterFromDocument(_document: HTMLDocument): Chapter {
+	public parseChapterFromDocument(_document: HTMLDocument): Chapter {
 		return {
 			data: (<HTMLDivElement> _document.querySelector('#chapters')).innerText
 		} 
