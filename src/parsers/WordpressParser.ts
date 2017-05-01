@@ -29,8 +29,6 @@ abstract class WordpressParser implements Parser {
 		return chapterUrls;
 	}
 
-	parserChapterFromDocument() {}
-
 	public parseChapterFromDocument(_document: HTMLDocument): Chapter {
 		return {
 			data: (<HTMLDivElement> _document.querySelector('.entry-content')).innerText

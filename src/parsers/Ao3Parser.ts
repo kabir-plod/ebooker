@@ -2,13 +2,12 @@
 // All fiction on archiveofourown.org
 
 export default class Ao3Parser implements Parser {
-	private NUM_SLASHES_FOR_URL_PREFIX = 6;
-
 	// Prefixed with underscore in case `document` is accidentally used 
 	// instead of `this.document`
-	private _document: HTMLDocument;
-	private pageUrl: string;
+	protected _document: HTMLDocument;
+	protected pageUrl: string;
 	private urlPrefix: string;
+	private NUM_SLASHES_FOR_URL_PREFIX = 6;
 
 	constructor(document: HTMLDocument, pageUrl: string) {
 		this._document = document;
