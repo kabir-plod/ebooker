@@ -29,5 +29,5 @@ interface Parser {
 }
 
 interface ParserReturner {
-	(_document: HTMLDocument, pageUrl): Parser
+	(_document: HTMLDocument, pageUrl: string): Parser
 }

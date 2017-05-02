@@ -1,24 +1,26 @@
-// CURRENTLY WORKS FOR:
-// All fiction on fictionpress.com and fanfiction.net
+// See bottom of file for registrations with factory
+import BaseParser from './BaseParser';
+import ParserFactory from '../ParserFactory';
 
-export default class FictionpressParser implements Parser {
+
+ParserFactory.register('www.fictionpress.com', FictionpressParser.getParserReturner());
+ParserFactory.register('www.fanfiction.net', FictionpressParser.getParserReturner());
+
+
+export default class FictionpressParser extends BaseParser implements Parser {
 	private NUM_SLASHES_FOR_URL_PREFIX = 5;
-
-	protected _document: HTMLDocument;
-	protected pageUrl: string;
 	private urlPrefix: string;
 	private urlPostfix: string;
 
 	constructor(_document: HTMLDocument, pageUrl: string) {
-		this._document = _document;
-		this.pageUrl = pageUrl;
-		this.urlPrefix = this.parseUrlPrefix(pageUrl);
-		this.urlPostfix = this.parseUrlPostfix(pageUrl);
+		super(_document, pageUrl);
+		this.urlPrefix = this.parseUrlPrefix(this.pageUrl);
+		this.urlPostfix = this.parseUrlPostfix(this.pageUrl);
 	}
 
 	public static getParserReturner(): ParserReturner {
-		return function(_document: HTMLDocument, pageURL: string) {
-			return new FictionpressParser(_document, pageURL);
+		return function(_document: HTMLDocument, pageUrl: string) {
+			return new FictionpressParser(_document, pageUrl);
 		};
 	}
 

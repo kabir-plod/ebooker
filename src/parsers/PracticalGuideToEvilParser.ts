@@ -1,6 +1,9 @@
-// CURRENTLY WORKS FOR:
-// practicalguidetoevil.wordpress.com/table-of-contents/
+// See bottom of file for registrations with factory
 import WordpressParser from './WordpressParser';
+import ParserFactory from '../ParserFactory';
+
+
+ParserFactory.register('practicalguidetoevil.wordpress.com', PracticalGuideToEvilParser.getParserReturner());
 
 
 export default class PracticalGuideToEvilParser extends WordpressParser implements Parser {
@@ -9,8 +12,8 @@ export default class PracticalGuideToEvilParser extends WordpressParser implemen
 	}
 
 	public static getParserReturner(): ParserReturner {
-		return function(_document: HTMLDocument, pageURL: string) {
-			return new PracticalGuideToEvilParser(_document, pageURL);
+		return function(_document: HTMLDocument, pageUrl: string) {
+			return new PracticalGuideToEvilParser(_document, pageUrl);
 		};
 	}
 

@@ -1,6 +1,6 @@
-// CURRENTLY WORKS FOR:
-// tiraas.wordpress.com/table-of-contents/
+// See bottom of file for registrations with factory
 import WordpressParser from './WordpressParser';
+import ParserFactory from '../ParserFactory';
 
 
 export default class TheGodsAreBastardsParser extends WordpressParser implements Parser {
@@ -9,8 +9,8 @@ export default class TheGodsAreBastardsParser extends WordpressParser implements
 	}
 
 	public static getParserReturner(): ParserReturner {
-		return function(_document: HTMLDocument, pageURL: string) {
-			return new TheGodsAreBastardsParser(_document, pageURL);
+		return function(_document: HTMLDocument, pageUrl: string) {
+			return new TheGodsAreBastardsParser(_document, pageUrl);
 		};
 	}
 
@@ -30,3 +30,6 @@ export default class TheGodsAreBastardsParser extends WordpressParser implements
 		return super.parseChapterFromDocument(_document); 
 	}
 }
+
+
+ParserFactory.register('tiraas.wordpress.com', TheGodsAreBastardsParser.getParserReturner());

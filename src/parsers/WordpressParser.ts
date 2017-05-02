@@ -1,12 +1,9 @@
-abstract class WordpressParser implements Parser {
-	// Prefixed with underscore in case `document` is accidentally used 
-	// instead of `this.document`.
-	protected _document: HTMLDocument;
-	protected pageUrl: string;
+import BaseParser from './BaseParser';
 
+
+abstract class WordpressParser extends BaseParser implements Parser {
 	constructor(_document: HTMLDocument, pageUrl: string) {
-		this._document = _document;
-		this.pageUrl = pageUrl;
+		super(_document, pageUrl);
 	}
 
 	public getTitle() {

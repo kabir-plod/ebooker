@@ -1,23 +1,20 @@
-// CURRENTLY WORKS FOR:
-// All fiction on archiveofourown.org
+// See bottom of file for registrations with factory
+import BaseParser from './BaseParser';
+import ParserFactory from '../ParserFactory';
 
-export default class Ao3Parser implements Parser {
-	// Prefixed with underscore in case `document` is accidentally used 
-	// instead of `this.document`
-	protected _document: HTMLDocument;
-	protected pageUrl: string;
+
+export default class Ao3Parser extends BaseParser implements Parser {
 	private urlPrefix: string;
 	private NUM_SLASHES_FOR_URL_PREFIX = 6;
 
-	constructor(document: HTMLDocument, pageUrl: string) {
-		this._document = document;
-		this.pageUrl = pageUrl;
+	constructor(_document: HTMLDocument, pageUrl: string) {
+		super(_document, pageUrl);
 		this.urlPrefix = this.parseUrlPrefix(pageUrl);
 	}
 
 	public static getParserReturner(): ParserReturner {
-		return function(_document: HTMLDocument, pageURL: string) {
-			return new Ao3Parser(_document, pageURL);
+		return function(_document: HTMLDocument, pageUrl: string) {
+			return new Ao3Parser(_document, pageUrl);
 		};
 	}
 
@@ -56,3 +53,6 @@ export default class Ao3Parser implements Parser {
 		return tokens.slice(0, this.NUM_SLASHES_FOR_URL_PREFIX).join('/') + '/';
 	}
 }
+
+
+ParserFactory.register('archiveofourown.org', Ao3Parser.getParserReturner());
