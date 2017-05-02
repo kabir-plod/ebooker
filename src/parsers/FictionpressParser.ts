@@ -2,15 +2,10 @@
 // All fiction on fictionpress.com and fanfiction.net
 
 export default class FictionpressParser implements Parser {
-	private TITLE_QUERY = 'b.xcontrast_txt';
-	private AUTHOR_QUERY = 'a.xcontrast_txt'; // querySelectorAll required for author
-	private CHAPTER_SELECT_QUERY = 'select';
-	private STORY_QUERY = '#chapters';
-
 	private NUM_SLASHES_FOR_URL_PREFIX = 5;
 
-	private _document: HTMLDocument;
-	private pageUrl: string;
+	protected _document: HTMLDocument;
+	protected pageUrl: string;
 	private urlPrefix: string;
 	private urlPostfix: string;
 
@@ -21,34 +16,39 @@ export default class FictionpressParser implements Parser {
 		this.urlPostfix = this.parseUrlPostfix(pageUrl);
 	}
 
-
-	getTitle(): string {
-		return (<HTMLElement> this._document.querySelector(this.TITLE_QUERY)).innerText;
+	public static getParserReturner(): ParserReturner {
+		return function(_document: HTMLDocument, pageURL: string) {
+			return new FictionpressParser(_document, pageURL);
+		};
 	}
 
-	getAuthor(): string {
-		return (<HTMLElement> this._document.querySelectorAll(this.AUTHOR_QUERY)[2]).innerText;
+	public getTitle(): string {
+		return (<HTMLElement> this._document.querySelector('b.xcontrast_txt')).innerText;
 	}
 
-	getChapterUrls(): string[] {
-		const selectElem = this._document.getElementsByTagName(this.CHAPTER_SELECT_QUERY)[0];
+	public getAuthor(): string {
+		return (<HTMLElement> this._document.querySelectorAll('a.xcontrast_txt')[2]).innerText;
+	}
+
+	public getChapterUrls(): string[] {
+		const selectElem = this._document.getElementsByTagName('select')[0];
 		if (selectElem == undefined) {
 			return [this.pageUrl];
 		}
 		else {
-			const numChapters = (<HTMLSelectElement> selectElem).options.length;
+			const options = (<HTMLSelectElement> selectElem).options;
 			let chapterUrls = [];
-			for (let i=1; i<=numChapters; i++) {
-				chapterUrls.push(this.urlPrefix + i.toString() + this.urlPostfix);
+			for (let i=0; i<options.length; i++) {
+				chapterUrls.push(this.urlPrefix + (<HTMLOptionElement> options[i]).value + this.urlPostfix);
 			}
 
 			return chapterUrls;
 		}
 	}
 
-	parseChapterFromDocument(_document: HTMLDocument): Chapter {
+	public parseChapterFromDocument(_document: HTMLDocument): Chapter {
 		return {
-			data: (<HTMLElement> this._document.querySelector(this.STORY_QUERY)).innerText
+			data: (<HTMLElement> this._document.querySelector('#chapters')).innerText
 		}
 	}
 
