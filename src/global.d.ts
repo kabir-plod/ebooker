@@ -12,9 +12,9 @@ interface EpubOption {
 }
 
 interface Parser {
-	// Typescript does not allow declaration of static methods  in interfaces as of version 2.2.
+	// Typescript does not allow declaration of static methods in interfaces as of version 2.2.
 	// Workarounds are clumsy (see https://github.com/Microsoft/TypeScript/issues/13462)
-	// In addition, abstract classes are unable to declare abstract static methods -
+	// Abstract classes too are unable to declare abstract static methods -
 	// again, workarounds are difficult to implement and difficult to understand.
 	// This comment is a reminder to implement
 
@@ -25,7 +25,7 @@ interface Parser {
 	getCover?(): string;
 
 	getChapterUrls(): string[];
-	parseChapterFromDocument(_document: HTMLDocument): Chapter;
+	getChapter(): Chapter;
 }
 
 interface ParserReturner {

@@ -26,10 +26,7 @@ export default class TheGodsAreBastardsParser extends WordpressParser implements
 		return super.getChapterUrls();
 	}
 
-	public parseChapterFromDocument(_document: HTMLDocument): Chapter {
-		return super.parseChapterFromDocument(_document); 
+	public getChapter(): Chapter {
+		return super.getChapter(); 
 	}
 }
-
-
-ParserFactory.register('tiraas.wordpress.com', TheGodsAreBastardsParser.getParserReturner());

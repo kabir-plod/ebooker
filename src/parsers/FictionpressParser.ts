@@ -3,10 +3,6 @@ import BaseParser from './BaseParser';
 import ParserFactory from '../ParserFactory';
 
 
-ParserFactory.register('www.fictionpress.com', FictionpressParser.getParserReturner());
-ParserFactory.register('www.fanfiction.net', FictionpressParser.getParserReturner());
-
-
 export default class FictionpressParser extends BaseParser implements Parser {
 	private NUM_SLASHES_FOR_URL_PREFIX = 5;
 	private urlPrefix: string;
@@ -48,9 +44,9 @@ export default class FictionpressParser extends BaseParser implements Parser {
 		}
 	}
 
-	public parseChapterFromDocument(_document: HTMLDocument): Chapter {
+	public getChapter(): Chapter {
 		return {
-			data: (<HTMLElement> this._document.querySelector('#chapters')).innerText
+			data: (<HTMLElement> this._document.querySelector('#storytext')).innerText
 		}
 	}
 

@@ -3,9 +3,6 @@ import WordpressParser from './WordpressParser';
 import ParserFactory from '../ParserFactory';
 
 
-ParserFactory.register('practicalguidetoevil.wordpress.com', PracticalGuideToEvilParser.getParserReturner());
-
-
 export default class PracticalGuideToEvilParser extends WordpressParser implements Parser {
 	constructor(_document: HTMLDocument, pageUrl: string) {
 		super(_document, pageUrl);
@@ -29,7 +26,7 @@ export default class PracticalGuideToEvilParser extends WordpressParser implemen
 		return super.getChapterUrls();
 	}
 
-	public parseChapterFromDocument(_document: HTMLDocument): Chapter {
-		return super.parseChapterFromDocument(_document);
+	public getChapter(): Chapter {
+		return super.getChapter();
 	}
 }

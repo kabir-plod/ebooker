@@ -44,10 +44,7 @@ export default class TwigParser extends WordpressParser implements Parser  {
 		return tokens.slice(0, this.NUM_SLASHES_FOR_URL_PREFIX).join('/') + '/';
 	}
 
-	public parseChapterFromDocument(_document: HTMLDocument): Chapter {
-		return super.parseChapterFromDocument(_document);
+	public getChapter(): Chapter {
+		return super.getChapter(); 
 	}
 }
-
-
-ParserFactory.register('twigserial.wordpress.com', TwigParser.getParserReturner());

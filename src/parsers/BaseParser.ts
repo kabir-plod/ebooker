@@ -14,7 +14,7 @@ abstract class BaseParser implements Parser {
 	public abstract getTitle();
 	public abstract getAuthor();
 	public abstract getChapterUrls();
-	public abstract parseChapterFromDocument(_document: HTMLDocument);
+	public abstract getChapter();
 }
 
 

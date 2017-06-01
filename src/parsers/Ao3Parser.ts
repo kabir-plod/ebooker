@@ -42,9 +42,9 @@ export default class Ao3Parser extends BaseParser implements Parser {
 		}
 	}
 
-	public parseChapterFromDocument(_document: HTMLDocument): Chapter {
+	public getChapter(): Chapter {
 		return {
-			data: (<HTMLDivElement> _document.querySelector('#chapters')).innerText
+			data: (<HTMLDivElement> this._document.querySelector('#chapters')).innerText
 		} 
 	}
 
@@ -53,6 +53,3 @@ export default class Ao3Parser extends BaseParser implements Parser {
 		return tokens.slice(0, this.NUM_SLASHES_FOR_URL_PREFIX).join('/') + '/';
 	}
 }
-
-
-ParserFactory.register('archiveofourown.org', Ao3Parser.getParserReturner());
