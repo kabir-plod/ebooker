@@ -53,6 +53,7 @@ export default class FictionpressParser extends BaseParser implements Parser {
 		}
 	}
 
+	// TODO: reuse code from getChapterUrls
 	private getChapterTitle(): string {
 		const selectElem = this._document.getElementsByTagName('select')[0];
 		if (selectElem == undefined) {

@@ -28,10 +28,14 @@ abstract class WordpressParser extends BaseParser implements Parser {
 
 	public getChapter(): Chapter {
 		return {
-			title: this.getTitle(),
+			title: this.getChapterTitle(),
 			author: this.getAuthor(),
 			content: <HTMLDivElement> this._document.querySelector('.entry-content')
 		} 
+	}
+
+	private getChapterTitle(): string {
+		return this._document.querySelector('.entry-title').textContent;
 	}
 }
 
