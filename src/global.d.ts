@@ -1,7 +1,7 @@
 interface Chapter {
 	title?: string;
 	author?: string;
-	data: string;
+	content: HTMLElement;
 }
 
 interface EpubOption {

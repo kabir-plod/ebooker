@@ -44,7 +44,9 @@ export default class Ao3Parser extends BaseParser implements Parser {
 
 	public getChapter(): Chapter {
 		return {
-			data: (<HTMLDivElement> this._document.querySelector('#chapters')).innerText
+			title: this.getTitle(),
+			author: this.getAuthor(),
+			content: <HTMLDivElement> this._document.querySelector('#chapters')
 		} 
 	}
 

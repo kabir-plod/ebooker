@@ -8,6 +8,7 @@ export default class FictionpressParser extends BaseParser implements Parser {
 	private urlPrefix: string;
 	private urlPostfix: string;
 
+
 	constructor(_document: HTMLDocument, pageUrl: string) {
 		super(_document, pageUrl);
 		this.urlPrefix = this.parseUrlPrefix(this.pageUrl);
@@ -46,7 +47,20 @@ export default class FictionpressParser extends BaseParser implements Parser {
 
 	public getChapter(): Chapter {
 		return {
-			data: (<HTMLElement> this._document.querySelector('#storytext')).innerText
+			title: this.getChapterTitle(),
+			author: this.getAuthor(),
+			content: <HTMLElement> this._document.querySelector('#storytext')
+		}
+	}
+
+	private getChapterTitle(): string {
+		const selectElem = this._document.getElementsByTagName('select')[0];
+		if (selectElem == undefined) {
+			return this.getTitle();
+		}
+		else {
+			const options = (<HTMLSelectElement> selectElem).options;
+			return options[options.selectedIndex].textContent;
 		}
 	}
 

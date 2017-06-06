@@ -1,5 +1,6 @@
 import FictionpressParser from './parsers/FictionpressParser';
 import ParserFactory from './ParserFactory';
+import Epub from './Epub';
 
 
 const hostname = window.location.hostname;
@@ -38,7 +39,5 @@ chapterUrls.map( (url, index) => {
 
 
 function packEpub() {
-	console.log('chapter 30: ');
-	console.log(chapters[29]);
-	// return new Epub(chapterArr, null);
+	const epub = new Epub(chapters[0].title, chapters[0].author, chapters);
 }

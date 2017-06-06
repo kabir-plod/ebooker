@@ -39,7 +39,9 @@ export default class RoyalroadlParser extends BaseParser implements Parser {
 
 	public getChapter(): Chapter {
 		return {
-			data: (<HTMLDivElement> this._document.querySelector('.entry-content')).innerText
+			title: this.getTitle(),
+			author: this.getAuthor(),
+			content: <HTMLDivElement> this._document.querySelector('.entry-content')
 		} 
 	}
 }

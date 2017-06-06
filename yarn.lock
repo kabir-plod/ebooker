@@ -122,7 +122,7 @@ addons-linter@0.18.2:
     yargs "7.1.0"
     yauzl "2.7.0"
 
-adm-zip@~0.4.3, adm-zip@~0.4.x:
+adm-zip@^0.4.7, adm-zip@~0.4.3, adm-zip@~0.4.x:
   version "0.4.7"
   resolved "https://registry.yarnpkg.com/adm-zip/-/adm-zip-0.4.7.tgz#8606c2cbf1c426ce8c8ec00174447fd49b6eafc1"
 
@@ -2650,6 +2650,10 @@ htmlparser2@^3.9.1:
     entities "^1.1.1"
     inherits "^2.0.1"
     readable-stream "^2.0.2"
+
+htmltidy2@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/htmltidy2/-/htmltidy2-0.2.1.tgz#62b505541b8974f941a6aa8edd4e3149dd9b45e0"
 
 http-deceiver@^1.2.4:
   version "1.2.7"
