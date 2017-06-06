@@ -47,5 +47,10 @@ module.exports = {
 	},
 	plugins: [
 		CopyWebpackPluginConfig,
-	]
+	],
+	// Workaround for `can't resolve module 'fs'` issue with htmltidy2
+	node: {
+		fs: 'empty',
+		child_process: 'empty'
+	}
 };

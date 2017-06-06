@@ -5,17 +5,48 @@ export default class Epub {
 	private author: string;
 	private chapters: Chapter[];
 
-	private toc: HTMLDocument;
+	private tocXHTML: HTMLDocument;
+	private chaptersXHTML: HTMLDocument[];
+
 
 	constructor(title: string, author: string, chapters: Chapter[]) {
 		this.title = title;
 		this.author = author;
 		this.chapters = chapters;
 
-		this.buildTableOfContents(chapters);
+		this.tocXHTML = this.buildTableOfContents(chapters);
+		this.chaptersXHTML = this.formatChapterContent(chapters);
+		console.log('chapter 2 document');
+			console.log(this.chaptersXHTML[1]);
 	}
 
-	buildTableOfContents(chapters: Chapter[]) {
+
+	private formatChapterContent(chapters: Chapter[]): HTMLDocument[] {
+		const s = new XMLSerializer();
+		const parser = new DOMParser();
+		return chapters.map( ch => {
+			const doc = parser.parseFromString(s.serializeToString(ch.content), 'text/html');
+
+			doc.title = this.title;
+
+			const section = doc.createElement('section');
+			section.setAttribute('role', 'doc-chapter');
+			this.wrapElement(<HTMLElement> doc.body.firstElementChild, section);
+
+			const h1 = doc.createElement('h1');
+			h1.textContent = ch.title;
+			doc.body.insertBefore(h1, doc.body.firstChild);
+
+			return doc;
+		});
+	}
+
+	private wrapElement(elem: HTMLElement, wrapper: HTMLElement) {
+		elem.parentNode.insertBefore(wrapper, elem);
+		wrapper.appendChild(elem);
+	}
+
+	private buildTableOfContents(chapters: Chapter[]): HTMLDocument {
 		// From https://github.com/IDPF/epub3-samples/tree/master/31/moby-dick-mo-xhtml/EPUB
 		let toc = new DOMParser().parseFromString(
 			`<?xml version="1.0" encoding="utf-8"?>
@@ -57,6 +88,6 @@ export default class Epub {
 			ol.appendChild(li);
 		}
 
-		this.toc = toc;
+		return toc;
 	}
 }

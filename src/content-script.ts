@@ -24,7 +24,7 @@ chapterUrls.map( (url, index) => {
 
 		requestCounter -= 1;
 		if (requestCounter == 0) {
-			packEpub();
+			packEpub(parser.getTitle(), parser.getAuthor(), chapters);
 		}
 	}
 
@@ -38,6 +38,6 @@ chapterUrls.map( (url, index) => {
 });
 
 
-function packEpub() {
-	const epub = new Epub(chapters[0].title, chapters[0].author, chapters);
+function packEpub(title: string, author: string, chapters: Chapter[]) {
+	const epub = new Epub(title, author, chapters);
 }
