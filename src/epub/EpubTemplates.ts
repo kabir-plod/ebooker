@@ -2,7 +2,7 @@ interface EpubTemplate {
 	TitlePageXHTML: HTMLDocument,
 	TocXHTML: HTMLDocument,
 	PackageOPF: XMLDocument,
-	ContainerXML: XMLDocument
+	ContainerXMLSerialized: string
 }
 
 
@@ -52,15 +52,15 @@ const templates: EpubTemplate = {
 
 	PackageOPF: parser.parseFromString(
 		`<?xml version="1.0" encoding="UTF-8"?>
-		<package id="package" xmlns="http://www.idpf.org/2007/opf" version="3.1" xml:lang="en" 
+		<package id="package" xmlns="http://www.idpf.org/2007/opf" version="3.0" xml:lang="en" 
 		prefix="dc: http://purl.org/dc/elements/1.1/">
 
 			<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
 				<dc:title id="title"></dc:title>
 				<dc:creator id="creator"></dc:creator>
-				<dc:identifier id="pub-id">idpf.epub31.samples.moby-dick.xhtml</dc:identifier>
+				<dc:identifier id="uid"></dc:identifier>
 				<dc:language id="language"></dc:language>
-				<dc:publisher></dc:publisher>
+				<dc:publisher id="publisher"></dc:publisher>
 				<meta id="last-modified" property="dcterms:modified"></meta>
 				<meta property="dc:contributor">ebooker</meta>
 			</metadata>
@@ -78,15 +78,12 @@ const templates: EpubTemplate = {
 	),
 
 
-	ContainerXML: parser.parseFromString(
+	ContainerXMLSerialized: 
 		`<?xml version="1.0" encoding="UTF-8"?><container xmlns="urn:oasis:names:tc:opendocument:xmlns:container" version="1.0">
 			<rootfiles>
 				<rootfile full-path="EPUB/package.opf" media-type="application/oebps-package+xml"/>
 			</rootfiles>
-		</container>`,
-
-		'application/xml'
-	)
+		</container>`
 }
 
 export default templates;

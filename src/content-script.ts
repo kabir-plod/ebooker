@@ -40,4 +40,5 @@ chapterUrls.map( (url, index) => {
 
 function packEpub(title: string, author: string, chapters: Chapter[]) {
 	const epub = new Epub(title, author, chapters);
+	epub.export();
 }
