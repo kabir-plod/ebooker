@@ -1,6 +1,6 @@
 import FictionpressParser from './parsers/FictionpressParser';
 import ParserFactory from './ParserFactory';
-import Epub from './Epub';
+import Epub from './epub/Epub';
 
 
 const hostname = window.location.hostname;
