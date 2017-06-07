@@ -1,7 +1,7 @@
 import * as test from 'tape';
-import fictionpressTestInfo from './fictionpressTestInfo';
-import ao3TestInfo from './ao3TestInfo';
-import royalroadlTestInfo from './royalroadlTestInfo';
+import fictionpressTestInfo from './parser/fictionpressTestInfo';
+import ao3TestInfo from './parser/ao3TestInfo';
+import royalroadlTestInfo from './parser/royalroadlTestInfo';
 
 
 const testInfoArr: TestInfo[] = [...fictionpressTestInfo, ...ao3TestInfo, ...royalroadlTestInfo];
@@ -16,7 +16,10 @@ testInfoArr.map( (testInfo, index) => {
 	xhr.onload = function() {
 		parsers[testInfo.url] = testInfo.parser(xhr.responseXML, testInfo.url);
 
-		waitForAllRequests();
+		requestCounter -= 1;
+		if (requestCounter === 0) {
+			testParsers();
+		}
 	}
 
 	xhr.onerror = function() {
@@ -29,16 +32,7 @@ testInfoArr.map( (testInfo, index) => {
 });
 
 
-function waitForAllRequests() {
-	requestCounter -= 1;
-
-	if (requestCounter === 0) {
-		testAll();
-	}
-}
-
-
-function testAll() {
+function testParsers() {
 	console.log('PARSER TESTS');
 	testInfoArr.map( (testInfo, index) => {
 		test(testInfo.testName, t => {

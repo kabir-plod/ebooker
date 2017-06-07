@@ -1,4 +1,4 @@
-import Ao3Parser from '../src/parsers/Ao3Parser';
+import Ao3Parser from '../../src/parsers/Ao3Parser';
 
 
 const fictionpressTestInfo: TestInfo[] =

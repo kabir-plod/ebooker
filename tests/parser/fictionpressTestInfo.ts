@@ -1,4 +1,4 @@
-import FictionpressParser from '../src/parsers/FictionpressParser';
+import FictionpressParser from '../../src/parsers/FictionpressParser';
 
 
 const fictionpressTestInfo: TestInfo[] =
