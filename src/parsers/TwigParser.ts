@@ -1,6 +1,6 @@
-// CURRENTLY WORKS FOR:
-// twigserial.wordpress.com
+// See bottom of file for registrations with factory
 import WordpressParser from './WordpressParser';
+import ParserFactory from '../ParserFactory';
 
 
 export default class TwigParser extends WordpressParser implements Parser  {
@@ -9,12 +9,12 @@ export default class TwigParser extends WordpressParser implements Parser  {
 
 	constructor(_document: HTMLDocument, pageUrl: string) {
 		super(_document, pageUrl);
-		this.urlPrefix = this.parseUrlPrefix(pageUrl);
+		this.urlPrefix = this.parseUrlPrefix(this.pageUrl);
 	}
 
 	public static getParserReturner(): ParserReturner {
-		return function(_document: HTMLDocument, pageURL: string) {
-			return new TwigParser(_document, pageURL);
+		return function(_document: HTMLDocument, pageUrl: string) {
+			return new TwigParser(_document, pageUrl);
 		};
 	}
 
@@ -44,7 +44,7 @@ export default class TwigParser extends WordpressParser implements Parser  {
 		return tokens.slice(0, this.NUM_SLASHES_FOR_URL_PREFIX).join('/') + '/';
 	}
 
-	public parseChapterFromDocument(_document: HTMLDocument): Chapter {
-		return super.parseChapterFromDocument(_document);
+	public getChapter(): Chapter {
+		return super.getChapter(); 
 	}
 }

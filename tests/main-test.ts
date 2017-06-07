@@ -39,6 +39,7 @@ function waitForAllRequests() {
 
 
 function testAll() {
+	console.log('PARSER TESTS');
 	testInfoArr.map( (testInfo, index) => {
 		test(testInfo.testName, t => {
 			const parser = parsers[testInfo.url];

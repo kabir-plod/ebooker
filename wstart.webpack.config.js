@@ -7,7 +7,7 @@ var entryObj = {
 	'bundle': path.join(__dirname, '/src/index.tsx')
 };
 var manifestFile = '/src/manifest.json';
-var backgroundPage = '/src/bg.html';
+var backgroundPage = '/src/bg.js';
 var outdir = '/dist/main';
 var moduleRulesInclude = [path.join(__dirname, 'src')];
 var devtool = 'eval';

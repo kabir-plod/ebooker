@@ -4,10 +4,10 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 
 var entryObj = {
-	'bundle': path.join(__dirname, '/src/index.tsx')
+	'content-script': path.join(__dirname, '/src/content-script.ts')
 };
 var manifestFile = '/src/manifest.json';
-var backgroundPage = '/src/bg.html';
+var backgroundPage = '/src/bg.js';
 var outdir = '/dist/main';
 var moduleRulesInclude = [path.join(__dirname, 'src')];
 var devtool = 'cheap-source-map';
@@ -47,5 +47,10 @@ module.exports = {
 	},
 	plugins: [
 		CopyWebpackPluginConfig,
-	]
+	],
+	// Workaround for `can't resolve module 'fs'` issue with htmltidy2
+	node: {
+		fs: 'empty',
+		child_process: 'empty'
+	}
 };

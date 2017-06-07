@@ -1,20 +1,16 @@
-// CURRENTLY WORKS FOR:
-// All fiction on royalroadl.com
+// See bottom of file for registrations with factory
+import BaseParser from './BaseParser';
+import ParserFactory from '../ParserFactory';
 
-export default class RoyalroadlParser implements Parser {
-	// Prefixed with underscore in case `document` is accidentally used 
-	// instead of `this.document`.
-	protected _document: HTMLDocument;
-	protected pageUrl: string;
 
+export default class RoyalroadlParser extends BaseParser implements Parser {
 	constructor(_document: HTMLDocument, pageUrl: string) {
-		this._document = _document;
-		this.pageUrl = pageUrl;
+		super(_document, pageUrl);
 	}
 
 	public static getParserReturner(): ParserReturner {
-		return function(_document: HTMLDocument, pageURL: string) {
-			return new RoyalroadlParser(_document, pageURL);
+		return function(_document: HTMLDocument, pageUrl: string) {
+			return new RoyalroadlParser(_document, pageUrl);
 		};
 	}
 	
@@ -41,9 +37,16 @@ export default class RoyalroadlParser implements Parser {
 		return chapterUrls;
 	}
 
-	public parseChapterFromDocument(_document: HTMLDocument): Chapter {
+	public getChapter(): Chapter {
 		return {
-			data: (<HTMLDivElement> _document.querySelector('.entry-content')).innerText
+			title: this.getChapterTitle(),
+			author: this.getAuthor(),
+			content: <HTMLDivElement> this._document.querySelector('.entry-content')
 		} 
+	}
+
+	private getChapterTitle(): string {
+		// TODO
+		return 'PLACEHOLDER'
 	}
 }

@@ -1,17 +1,16 @@
-// CURRENTLY WORKS FOR:
-// parahumans.wordpress.com
-// pactwebserial.wordpress.com
+// See bottom of file for registrations with factory
 import WordpressParser from './WordpressParser';
+import ParserFactory from '../ParserFactory';
 
 
-export default class WormParser extends WordpressParser implements Parser {
+export default class WildbowParser extends WordpressParser implements Parser {
 	constructor(_document: HTMLDocument, pageUrl: string) {
 		super(_document, pageUrl);
 	}
 	
 	public static getParserReturner(): ParserReturner {
-		return function(_document: HTMLDocument, pageURL: string) {
-			return new WormParser(_document, pageURL);
+		return function(_document: HTMLDocument, pageUrl: string) {
+			return new WildbowParser(_document, pageUrl);
 		};
 	}
 
@@ -34,7 +33,7 @@ export default class WormParser extends WordpressParser implements Parser {
 		return chapterUrls;
 	}
 
-	public parseChapterFromDocument(_document: HTMLDocument): Chapter {
-		return super.parseChapterFromDocument(_document); 
+	public getChapter(): Chapter {
+		return super.getChapter(); 
 	}
 }

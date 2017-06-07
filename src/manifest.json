@@ -10,22 +10,18 @@
 		"default_title": "ebooker",
 		"default_icon": {
 			
-		},
-		"default_popup": "panel.html"
-	},
-
-	"options_ui": {
-
+		}//,
+		// "default_popup": "panel.html"
 	},
 
 	"icons": {
 
 	},
 
-	"permissions": ["activeTab", "storage", "https://*/", "http://*/"],
+	"permissions": ["activeTab", "downloads", "https://*/", "http://*/"],
 
 	"background": {
-		"scripts": ["buttonclick-event-script.js"],
-		"persistent": true
+		"scripts": ["bg.js"],
+		"persistent": false
 	}
 }
