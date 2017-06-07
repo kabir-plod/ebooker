@@ -1,5 +1,6 @@
 import * as JSZip from 'jszip';
 import DOMUtil from '../util/DOMUtil';
+import DateUtil from '../util/DateUtil';
 import EpubTemplates from './EpubTemplates';
 
 
@@ -30,7 +31,7 @@ export default class Epub {
 		this.packageOPF = this.buildPackageOPF(chapters);
 	}
 
-	// TODO: pass arguments instead of using state?
+
 	public export() {
 		const zip = new JSZip();
 		const s = new XMLSerializer();
@@ -56,9 +57,11 @@ export default class Epub {
 		// TODO: remove objects from memory
 	}
 
+
 	private getChapterName(index) {
 		return this.CHAPTER_PREFIX + (index+1) + '.xhtml';
 	}
+
 
 	private buildTitlePage(): HTMLDocument {
 		const titleDoc = EpubTemplates.TitlePageXHTML;
@@ -81,100 +84,46 @@ export default class Epub {
 			const chapterName = this.getChapterName(index);
 
 			const item = DOMUtil.createElement(opf, 'item', 
-				{
-					'id': chapterName,
-					'href': chapterName,
-					'media-type': 'application/xhtml+xml'
-				})
+				{'id': chapterName, 'href': chapterName, 'media-type': 'application/xhtml+xml'})
 			manifest.appendChild(item);
 
 			const itemref = DOMUtil.createElement(opf, 'itemref', 
-				{
-					'idref': chapterName,
-					'linear':'yes'
-				})
+				{'idref': chapterName, 'linear':'yes'})
 			spine.appendChild(itemref);
 		});
 
-		console.log('package.opf');
-		console.log(opf);
-
 		return opf;
 	}
-
-	// CCYY-MM-DDThh:mm:ssZ
-	private getDate() {
-		const date = new Date();
-
-		function pad(number) {
-			if (number < 10) {
-				return '0' + number;
-			}
-			return number;
-		}
-
-		return date.getUTCFullYear() +
-		'-' + pad(date.getUTCMonth() + 1) +
-		'-' + pad(date.getUTCDate()) +
-		'T' + pad(date.getUTCHours()) +
-		':' + pad(date.getUTCMinutes()) +
-		':' + pad(date.getUTCSeconds()) +
-		'Z';
-	}
+	
 
 	private setPackageMetadata(opf: XMLDocument) {
-		const packageElem = opf.getElementById('package');
 		// TODO: create unique ID
-		packageElem.setAttribute('unique-identifier', 'uid')
-
-		const title = opf.getElementById('title');
-		title.textContent = this.title;
-
-		const creator = opf.getElementById('creator');
-		creator.textContent = this.author;
-
-		const publisher = opf.getElementById('publisher');
-		publisher.textContent = 'PLACEHOLDER';
-
-		const uid = opf.getElementById('uid');
-		uid.textContent = 'PLACEHOLDER';
-
+		opf.getElementById('package').setAttribute('unique-identifier', 'uid');
+		opf.getElementById('title').textContent = this.title;
+		opf.getElementById('creator').textContent = this.author;
+		opf.getElementById('publisher').textContent = 'PLACEHOLDER';
+		opf.getElementById('uid').textContent = 'PLACEHOLDER';
 		// TODO: support other languages
-		const lang = opf.getElementById('language');
-		lang.textContent = 'en';
-
-		const lastModified = opf.getElementById('last-modified');
-		lastModified.textContent = this.getDate();
-		console.log('last modified: ' + lastModified.textContent);
+		opf.getElementById('language').textContent = 'en';
+		opf.getElementById('last-modified').textContent = DateUtil.getDateString();
 	}
 
 
 	private formatChapterContent(chapters: Chapter[]): HTMLDocument[] {
-		const s = new XMLSerializer();
-		const parser = new DOMParser();
-
 		return chapters.map( ch => {
-			const doc = parser.parseFromString(s.serializeToString(ch.content), 'text/html');
+			const doc = EpubTemplates.ContentXHTML;
 
 			doc.title = this.title;
+			doc.getElementById('chapter-title').textContent = ch.title;
 
-			const section = DOMUtil.createElement(doc, 'section', {role: 'doc-chapter'});
-			DOMUtil.wrapElement(doc.body.firstElementChild, section);
-
-			DOMUtil.unwrapElement(section.firstElementChild);
-
-			const h1 = doc.createElement('h1');
-			h1.textContent = ch.title;
-
-			const header = doc.createElement('header');
-			header.appendChild(h1);
-			section.insertBefore(header, section.firstElementChild);
+			const section = doc.getElementById('content-section');
+			section.appendChild(ch.content);
+			DOMUtil.unwrapElement(ch.content);
 
 			return doc;
 		});
 	}
 
-	
 
 	private buildTableOfContents(chapters: Chapter[]): HTMLDocument {
 		const toc = EpubTemplates.TocXHTML;
@@ -183,7 +132,6 @@ export default class Epub {
 		const ol = toc.getElementById('ol');
 
 		chapters.map( (ch, index) => {
-
 			const li = DOMUtil.createElement(toc, 'li');
 			const a = DOMUtil.createElement(toc, 'a', {href: this.getChapterName(index)});
 			a.textContent = ch.title;
