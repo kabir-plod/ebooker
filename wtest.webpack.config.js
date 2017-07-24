@@ -44,6 +44,7 @@ module.exports = {
 	],
 	// Workaround for `can't resolve module 'fs'` issue
 	node: {
-		fs: 'empty'
+		fs: 'empty',
+		module: false
 	}
 };

@@ -13,6 +13,19 @@ let chapters: Chapter[] = new Array(chapterUrls.length);
 let requestCounter = chapterUrls.length;
 
 
+var port = chrome.runtime.connect({name: "knockknock"});
+port.postMessage({joke: "Knock knock"});
+port.onMessage.addListener(function(msg) {
+  if (msg['question'] == "Who's there?") {
+    port.postMessage({answer: "Madame"});
+  	  console.log("Madame");
+	}
+  else if (msg['question'] == "Madame who?")
+    port.postMessage({answer: "Madame... Bovary"});
+});
+
+
+// TODO: run in background thread?
 chapterUrls.map( (url, index) => {
 	const xhr = new XMLHttpRequest();
 
