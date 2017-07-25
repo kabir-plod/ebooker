@@ -1,4 +1,4 @@
-import RoyalroadlParser from '../src/parsers/RoyalroadlParser';
+import RoyalroadlParser from '../../src/parsers/RoyalroadlParser';
 
 
 const royalroadlTestInfo: TestInfo[] =
