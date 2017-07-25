@@ -4,9 +4,8 @@
   "description": "Browser extension to download web fiction as epubs",
   "scripts": {
     "dev": "webpack --config wdev.webpack.config.js --debug --output-pathinfo --progress --watch",
-    "test": "webpack --config wtest.webpack.config.js --output-pathinfo --progress --watch",
     "start": "webpack-dev-server --config wstart.webpack.config.js",
-    "karma": "karma start"
+    "test": "karma start"
   },
   "repository": {
     "type": "git",

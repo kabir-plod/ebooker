@@ -33,7 +33,6 @@ testInfoArr.map( (testInfo, index) => {
 
 
 function testParsers() {
-	console.log('PARSER TESTS');
 	testInfoArr.map( (testInfo, index) => {
 		test(testInfo.testName, t => {
 			const parser = parsers[testInfo.url];

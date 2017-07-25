@@ -32,7 +32,7 @@ module.exports = function(config) {
 			separator: '****************************'
 		},
 
-		singleRun: false,
+		singleRun: true,
 		port: 9876,
 		colors: true
 	});
