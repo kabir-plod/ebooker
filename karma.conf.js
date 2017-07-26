@@ -4,7 +4,7 @@ var webpackConfig = require('./wtest.webpack.config.js');
 module.exports = function(config) {
 	config.set(
 	{
-		basePath: './tests',
+		basePath: './test',
 
 		frameworks: ['tap'],
 
