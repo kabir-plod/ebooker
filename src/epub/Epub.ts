@@ -2,6 +2,7 @@ import * as JSZip from 'jszip';
 import DOMUtil from '../util/DOMUtil';
 import DateUtil from '../util/DateUtil';
 import EpubTemplates from './EpubTemplates';
+import { IChapter } from '../IChapter';
 
 
 export default class Epub {
@@ -9,7 +10,7 @@ export default class Epub {
 
 	private title: string;
 	private author: string;
-	private chapters: Chapter[];
+	private chapters: IChapter[];
 
 	private titleXHTML: HTMLDocument;
 	private tocXHTML: HTMLDocument;
@@ -20,7 +21,7 @@ export default class Epub {
 	private containerXMLSerialized: string = EpubTemplates.ContainerXMLSerialized;
 
 
-	constructor(title: string, author: string, chapters: Chapter[]) {
+	constructor(title: string, author: string, chapters: IChapter[]) {
 		this.title = title;
 		this.author = author;
 		this.chapters = chapters;
@@ -71,7 +72,7 @@ export default class Epub {
 	}
 
 
-	private buildPackageOPF(chapters: Chapter[]): XMLDocument {
+	private buildPackageOPF(chapters: IChapter[]): XMLDocument {
 		const opf = EpubTemplates.PackageOPF;
 
 		this.setPackageMetadata(opf);
@@ -109,7 +110,7 @@ export default class Epub {
 	}
 
 
-	private formatChapterContent(chapters: Chapter[]): HTMLDocument[] {
+	private formatChapterContent(chapters: IChapter[]): HTMLDocument[] {
 		return chapters.map( ch => {
 			const doc = EpubTemplates.ContentXHTML;
 
@@ -125,7 +126,7 @@ export default class Epub {
 	}
 
 
-	private buildTableOfContents(chapters: Chapter[]): HTMLDocument {
+	private buildTableOfContents(chapters: IChapter[]): HTMLDocument {
 		const toc = EpubTemplates.TocXHTML;
 		toc.title = this.title;
 

@@ -1,7 +1,8 @@
 import FictionpressParser from '../../src/parsers/FictionpressParser';
+import { ITestInfo } from '../ITestInfo';
 
 
-const fictionpressTestInfo: TestInfo[] =
+const fictionpressTestInfo: ITestInfo[] =
 [
 	{
 		testName: 'fictionpress parser on fanfiction, single chapter',

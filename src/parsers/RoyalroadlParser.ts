@@ -1,14 +1,17 @@
 // See bottom of file for registrations with factory
 import BaseParser from './BaseParser';
 import ParserFactory from '../ParserFactory';
+import { IParser } from './IParser';
+import { IParserReturner } from './IParserReturner';
+import { IChapter } from '../IChapter';
 
 
-export default class RoyalroadlParser extends BaseParser implements Parser {
+export default class RoyalroadlParser extends BaseParser implements IParser {
 	constructor(_document: HTMLDocument, pageUrl: string) {
 		super(_document, pageUrl);
 	}
 
-	public static getParserReturner(): ParserReturner {
+	public static getParserReturner(): IParserReturner {
 		return function(_document: HTMLDocument, pageUrl: string) {
 			return new RoyalroadlParser(_document, pageUrl);
 		};
@@ -37,7 +40,7 @@ export default class RoyalroadlParser extends BaseParser implements Parser {
 		return chapterUrls;
 	}
 
-	public getChapter(): Chapter {
+	public getChapter(): IChapter {
 		return {
 			title: this.getChapterTitle(),
 			author: this.getAuthor(),

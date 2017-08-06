@@ -1,4 +1,7 @@
-abstract class BaseParser implements Parser {
+import { IParser } from './IParser';
+
+
+abstract class BaseParser implements IParser {
 	// Prefixed with underscore in case `document` is accidentally used 
 	// instead of `this.document`
 	protected _document: HTMLDocument;

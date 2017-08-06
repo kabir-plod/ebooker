@@ -1,7 +1,8 @@
 import Ao3Parser from '../../src/parsers/Ao3Parser';
+import { ITestInfo } from '../ITestInfo';
 
 
-const fictionpressTestInfo: TestInfo[] =
+const fictionpressTestInfo: ITestInfo[] =
 [
 	{
 		testName: 'ao3, single chapter',

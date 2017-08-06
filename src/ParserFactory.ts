@@ -5,6 +5,8 @@ import RoyalroadlParser from './parsers/RoyalroadlParser';
 import TheGodsAreBastardsParser from './parsers/TheGodsAreBastardsParser';
 import TwigParser from './parsers/TwigParser';
 import WildbowParser from './parsers/WildbowParser';
+import { IParser } from './parsers/IParser';
+import { IParserReturner } from './IParserReturner';
 
 
 export default class ParserFactory {
@@ -21,11 +23,11 @@ export default class ParserFactory {
 		'pactwebserial.wordpress.com': WildbowParser.getParserReturner()
 	};
 
-	// public static register(hostname: string, parserReturner: ParserReturner): void {
+	// public static register(hostname: string, parserReturner: IParserReturner): void {
 	// 	this.parserMap[hostname] = parserReturner;
 	// }
 
-	public static getParser(hostname: string, _document: HTMLDocument, pageUrl: string): Parser {
+	public static getParser(hostname: string, _document: HTMLDocument, pageUrl: string): IParser {
 		return this.parserMap[hostname](_document, pageUrl);
 	}
 }

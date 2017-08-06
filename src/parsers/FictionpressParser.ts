@@ -1,9 +1,12 @@
 // See bottom of file for registrations with factory
 import BaseParser from './BaseParser';
 import ParserFactory from '../ParserFactory';
+import { IParser } from './IParser';
+import { IParserReturner } from './IParserReturner';
+import { IChapter } from '../IChapter';
 
 
-export default class FictionpressParser extends BaseParser implements Parser {
+export default class FictionpressParser extends BaseParser implements IParser {
 	private NUM_SLASHES_FOR_URL_PREFIX = 5;
 	private urlPrefix: string;
 	private urlPostfix: string;
@@ -15,7 +18,7 @@ export default class FictionpressParser extends BaseParser implements Parser {
 		this.urlPostfix = this.parseUrlPostfix(this.pageUrl);
 	}
 
-	public static getParserReturner(): ParserReturner {
+	public static getParserReturner(): IParserReturner {
 		return function(_document: HTMLDocument, pageUrl: string) {
 			return new FictionpressParser(_document, pageUrl);
 		};
@@ -45,7 +48,7 @@ export default class FictionpressParser extends BaseParser implements Parser {
 		}
 	}
 
-	public getChapter(): Chapter {
+	public getChapter(): IChapter {
 		return {
 			title: this.getChapterTitle(),
 			author: this.getAuthor(),

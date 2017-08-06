@@ -1,7 +1,8 @@
 import RoyalroadlParser from '../../src/parsers/RoyalroadlParser';
+import { ITestInfo } from '../ITestInfo';
 
 
-const royalroadlTestInfo: TestInfo[] =
+const royalroadlTestInfo: ITestInfo[] =
 [
 	{
 		testName: 'royalroadl parser, <20 chapters',

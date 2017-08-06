@@ -1,9 +1,12 @@
 // See bottom of file for registrations with factory
 import WordpressParser from './WordpressParser';
 import ParserFactory from '../ParserFactory';
+import { IParser } from './IParser';
+import { IParserReturner } from './IParserReturner';
+import { IChapter } from '../IChapter';
 
 
-export default class TwigParser extends WordpressParser implements Parser  {
+export default class TwigParser extends WordpressParser implements IParser  {
 	private NUM_SLASHES_FOR_URL_PREFIX = 3;
 	private urlPrefix: string;
 
@@ -12,7 +15,7 @@ export default class TwigParser extends WordpressParser implements Parser  {
 		this.urlPrefix = this.parseUrlPrefix(this.pageUrl);
 	}
 
-	public static getParserReturner(): ParserReturner {
+	public static getParserReturner(): IParserReturner {
 		return function(_document: HTMLDocument, pageUrl: string) {
 			return new TwigParser(_document, pageUrl);
 		};
@@ -44,7 +47,7 @@ export default class TwigParser extends WordpressParser implements Parser  {
 		return tokens.slice(0, this.NUM_SLASHES_FOR_URL_PREFIX).join('/') + '/';
 	}
 
-	public getChapter(): Chapter {
+	public getChapter(): IChapter {
 		return super.getChapter(); 
 	}
 }

@@ -1,9 +1,12 @@
 // See bottom of file for registrations with factory
 import BaseParser from './BaseParser';
 import ParserFactory from '../ParserFactory';
+import { IParser } from './IParser';
+import { IParserReturner } from './IParserReturner';
+import { IChapter } from '../IChapter';
 
 
-export default class Ao3Parser extends BaseParser implements Parser {
+export default class Ao3Parser extends BaseParser implements IParser {
 	private urlPrefix: string;
 	private NUM_SLASHES_FOR_URL_PREFIX = 6;
 
@@ -12,7 +15,7 @@ export default class Ao3Parser extends BaseParser implements Parser {
 		this.urlPrefix = this.parseUrlPrefix(pageUrl);
 	}
 
-	public static getParserReturner(): ParserReturner {
+	public static getParserReturner(): IParserReturner {
 		return function(_document: HTMLDocument, pageUrl: string) {
 			return new Ao3Parser(_document, pageUrl);
 		};
@@ -42,7 +45,7 @@ export default class Ao3Parser extends BaseParser implements Parser {
 		}
 	}
 
-	public getChapter(): Chapter {
+	public getChapter(): IChapter {
 		return {
 			title: this.getChapterTitle(),
 			author: this.getAuthor(),
