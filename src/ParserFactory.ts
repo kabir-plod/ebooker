@@ -6,7 +6,7 @@ import TheGodsAreBastardsParser from './parsers/TheGodsAreBastardsParser';
 import TwigParser from './parsers/TwigParser';
 import WildbowParser from './parsers/WildbowParser';
 import { IParser } from './parsers/IParser';
-import { IParserReturner } from './IParserReturner';
+import { IParserReturner } from './parsers/IParserReturner';
 
 
 export default class ParserFactory {
