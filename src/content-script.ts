@@ -1,6 +1,7 @@
 import FictionpressParser from './parsers/FictionpressParser';
 import ParserFactory from './ParserFactory';
 import Epub from './epub/Epub';
+import { IChapter } from './IChapter';
 
 
 const hostname = window.location.hostname;
@@ -8,7 +9,7 @@ const href = window.location.href;
 let parser = ParserFactory.getParser(hostname, document, href);
 
 const chapterUrls = parser.getChapterUrls();
-let chapters: Chapter[] = new Array(chapterUrls.length);
+let chapters: IChapter[] = new Array(chapterUrls.length);
 
 let requestCounter = chapterUrls.length;
 
@@ -51,7 +52,7 @@ chapterUrls.map( (url, index) => {
 });
 
 
-function packEpub(title: string, author: string, chapters: Chapter[]) {
+function packEpub(title: string, author: string, chapters: IChapter[]) {
 	const epub = new Epub(title, author, chapters);
 	// epub.export();
 }

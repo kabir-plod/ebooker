@@ -1,7 +1,9 @@
 import BaseParser from './BaseParser';
+import { IParser } from './IParser';
+import { IChapter } from '../IChapter';
 
 
-abstract class WordpressParser extends BaseParser implements Parser {
+abstract class WordpressParser extends BaseParser implements IParser {
 	constructor(_document: HTMLDocument, pageUrl: string) {
 		super(_document, pageUrl);
 	}
@@ -26,7 +28,7 @@ abstract class WordpressParser extends BaseParser implements Parser {
 		return chapterUrls;
 	}
 
-	public getChapter(): Chapter {
+	public getChapter(): IChapter {
 		return {
 			title: this.getChapterTitle(),
 			author: this.getAuthor(),

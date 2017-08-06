@@ -4,7 +4,7 @@ var webpackConfig = require('./wtest.webpack.config.js');
 module.exports = function(config) {
 	config.set(
 	{
-		basePath: './tests',
+		basePath: './test',
 
 		frameworks: ['tap'],
 
@@ -22,7 +22,7 @@ module.exports = function(config) {
 		customLaunchers: {
 			Chrome_without_security: {
 				base: 'Chrome',
-				flags: ['--disable-web-security']
+				flags: ['--disable-web-security', '--no-sandbox']
 			}
 		},
 

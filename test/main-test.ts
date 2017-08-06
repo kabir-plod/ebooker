@@ -2,15 +2,17 @@ import * as test from 'tape';
 import fictionpressTestInfo from './parser/fictionpressTestInfo';
 import ao3TestInfo from './parser/ao3TestInfo';
 import royalroadlTestInfo from './parser/royalroadlTestInfo';
+import { IParser } from '../src/parsers/IParser';
+import { ITestInfo } from './ITestInfo';
 
 
-const testInfoArr: TestInfo[] = [...fictionpressTestInfo, ...ao3TestInfo, ...royalroadlTestInfo];
+const testInfoArr: ITestInfo[] = [...fictionpressTestInfo, ...ao3TestInfo, ...royalroadlTestInfo];
 // Key is the actual address of the website, not 'url'.
-let parsers: {url: Parser} = {} as {url: Parser};
+let parsers: { url: IParser } = {} as { url: IParser };
 let requestCounter = testInfoArr.length;
 
 
-testInfoArr.map( (testInfo, index) => {
+testInfoArr.map((testInfo, index) => {
 	const xhr = new XMLHttpRequest();
 
 	xhr.onload = function() {
@@ -33,7 +35,7 @@ testInfoArr.map( (testInfo, index) => {
 
 
 function testParsers() {
-	testInfoArr.map( (testInfo, index) => {
+	testInfoArr.map((testInfo, index) => {
 		test(testInfo.testName, t => {
 			const parser = parsers[testInfo.url];
 
